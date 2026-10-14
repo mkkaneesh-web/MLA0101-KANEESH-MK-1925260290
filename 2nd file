@@ -1,0 +1,34 @@
+
+#include <stdio.h>
+
+int graph[5][5] = {
+    {0, 1, 1, 0, 0},
+    {1, 0, 0, 1, 1},
+    {1, 0, 0, 0, 1},
+    {0, 1, 0, 0, 1},
+    {0, 1, 1, 1, 0}
+};
+
+int visited[5] = {0};
+
+void DFS(int node) {
+    int i;
+
+    visited[node] = 1;
+    printf("%d ", node);
+
+    for (i = 0; i < 5; i++) {
+        if (graph[node][i] == 1 && !visited[i]) {
+            DFS(i);
+        }
+    }
+}
+
+int main() {
+    printf("DFS Traversal: ");
+    DFS(0);
+
+    return 0;
+}
+output
+DFS Traversal: 0 1 3 4 2
