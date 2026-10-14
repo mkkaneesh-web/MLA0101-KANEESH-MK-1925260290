@@ -1,0 +1,53 @@
+
+#include <stdio.h>
+
+#define N 5
+#define INF 9999
+
+int main() {
+    int cost[N][N] = {
+        {0, 2, 4, 0, 0},
+        {2, 0, 1, 7, 0},
+        {4, 1, 0, 3, 5},
+        {0, 7, 3, 0, 2},
+        {0, 0, 5, 2, 0}
+    };
+
+    int dist[N], visited[N] = {0};
+    int i, j, u, min;
+
+    for (i = 0; i < N; i++)
+        dist[i] = INF;
+
+    dist[0] = 0;
+
+    for (i = 0; i < N; i++) {
+        min = INF;
+        u = -1;
+
+        for (j = 0; j < N; j++) {
+            if (!visited[j] && dist[j] < min) {
+                min = dist[j];
+                u = j;
+            }
+        }
+
+        if (u == -1)
+            break;
+
+        visited[u] = 1;
+
+        for (j = 0; j < N; j++) {
+            if (cost[u][j] > 0 && !visited[j] &&
+                dist[u] + cost[u][j] < dist[j]) {
+                dist[j] = dist[u] + cost[u][j];
+            }
+        }
+    }
+
+    printf("Minimum cost from 0 to 4: %d", dist[4]);
+
+    return 0;
+}
+output
+Minimum cost from 0 to 4: 7
